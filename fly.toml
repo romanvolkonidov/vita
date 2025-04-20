@@ -1,8 +1,8 @@
-app = "vita"
+app = "vita"  # Ensure this matches your app name on Fly.io
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = "Dockerfile"  # Ensure this matches the Dockerfile location
 
 [env]
-  API_TOKEN = "your-api-token"
-  TEACHER_CHAT_ID = "your-chat-id"
+  API_TOKEN = "7703640097:AAGXF5lsSsEQndUMtn0l1RRgx2LLH2P3Txg"
+  TEACHER_CHAT_ID = "1752767024"
