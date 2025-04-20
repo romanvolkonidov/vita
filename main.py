@@ -74,7 +74,7 @@ quizzes = {
             "answer": "a dog"
         },
         {
-            "question": "13.What color is the dog?",
+            "question": "13.What color(s) is the dog?",
             "options": ["black", "white", "black and white", "не знаю"],
             "answer": "black and white"
         },
