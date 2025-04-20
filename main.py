@@ -1,9 +1,14 @@
 import telebot
 from telebot import types
 import re
+import os
+from dotenv import load_dotenv
 
-API_TOKEN = '7703640097:AAGXF5lsSsEQndUMtn0l1RRgx2LLH2P3Txg'
-TEACHER_CHAT_ID = 1752767024  # replace with your Telegram ID
+# Load environment variables from .env file
+load_dotenv()
+
+API_TOKEN = os.getenv('API_TOKEN')
+TEACHER_CHAT_ID = int(os.getenv('TEACHER_CHAT_ID'))
 
 # Define quizzes for each class
 quizzes = {
@@ -164,6 +169,3 @@ def handle_answer(message):
 
 if __name__ == '__main__':
     bot.polling()
-    # Update the API token and teacher chat ID as requested
-    API_TOKEN = '7703640097:AAGXF5lsSsEQndUMtn0l1RRgx2LLH2P3Txg'
-    TEACHER_CHAT_ID = 1752767024
