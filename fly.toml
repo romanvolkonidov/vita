@@ -1,2 +1,8 @@
+app = "vita"
+
 [build]
   dockerfile = "Dockerfile"
+
+[env]
+  API_TOKEN = "your-api-token"
+  TEACHER_CHAT_ID = "your-chat-id"
