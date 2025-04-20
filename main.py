@@ -12,30 +12,95 @@ TEACHER_CHAT_ID = int(os.getenv('TEACHER_CHAT_ID'))
 
 # Define quizzes for each class
 quizzes = {
-  "5 класс": [
-    {
-      "question": "2 + 2 = ?",
-      "options": ["3", "4", "5"],
-      "answer": "4"
-    },
-    {
-      "question": "10 - 7 = ?",
-      "options": ["2", "3", "4"],
-      "answer": "3"
-    }
-  ],
-  "6 класс": [
-    {
-      "question": "3 × 3 = ?",
-      "options": ["6", "9", "12"],
-      "answer": "9"
-    },
-    {
-      "question": "15 ÷ 3 = ?", 
-      "options": ["3", "5", "7"],
-      "answer": "5"
-    }
-  ]
+    "2 класс": [
+        {
+            "question": "1.What color is the sun?",
+            "options": ["green", "yellow", "blue", "не знаю"],
+            "answer": "yellow"
+        },
+        {
+            "question": "2.What do you wear on your head?",
+            "options": ["shoes", "chair", "hat", "не знаю"],
+            "answer": "hat"
+        },
+        {
+            "question": "3.Choose the animal:",
+            "options": ["dog", "apple", "ball", "не знаю"],
+            "answer": "dog"
+        },
+        {
+            "question": "4.What do you do with a pencil?",
+            "options": ["eat", "sleep", "write", "не знаю"],
+            "answer": "write"
+        },
+        {
+            "question": "5.Where do you sleep?",
+            "options": ["in the bed", "in the bag", "in the box", "не знаю"],
+            "answer": "in the bed"
+        },
+        {
+            "question": "6.She___8 years old.",
+            "options": ["is", "are", "am", "не знаю"],
+            "answer": "hat"
+        },
+        {
+            "question": "7. I ___a cat",
+            "options": ["has got", "have got", "have get", "не знаю"],
+            "answer": "have got"
+        },
+        {
+            "question": "8. This ___my book",
+            "options": ["is", "are", "be", "не знаю"],
+            "answer": "is"
+        },
+        {
+            "question": "9. We ___ apples",
+            "options": ["has got", "have got", "is", "не знаю"],
+            "answer": "have got"
+        },
+        {
+            "question": "10. ___ you play football?",
+            "options": ["Can", "Is", "Are", "не знаю"],
+            "answer": "Can"
+        },
+        {
+            "question": "Прочитай текст и ответь на вопросы: This is Ben. He is seven. He has a dog. The dog is black and white. Ben likes to play with his dog.\n11. How old is Ben?",
+            "options": ["6", "7", "8", "не знаю"],
+            "answer": "7"
+        },
+        {
+            "question": "12. What pet does Ben have?",
+            "options": ["a cat", "a fish", "a dog", "не знаю"],
+            "answer": "a dog"
+        },
+        {
+            "question": "13.What color is the dog?",
+            "options": ["black", "white", "black and white", "не знаю"],
+            "answer": "black and white"
+        },
+        {
+            "question": "14. Does Ben like to play with his dog?",
+            "options": ["Yes", "No", "не знаю"],
+            "answer": "Yes"
+        },
+        {
+            "question": "15. ___ it rain?",
+            "options": ["Does", "Is", "Are", "не знаю"],
+            "answer": "Does"
+        }
+    ],
+    "6 класс": [
+        {
+            "question": "3 × 3 = ?",
+            "options": ["6", "9", "12"],
+            "answer": "9"
+        },
+        {
+            "question": "15 ÷ 3 = ?", 
+            "options": ["3", "5", "7"],
+            "answer": "5"
+        }
+    ]
 }
 
 bot = telebot.TeleBot(API_TOKEN)
