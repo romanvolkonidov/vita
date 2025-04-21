@@ -200,33 +200,12 @@ def send_question(chat_id):
     quiz = user_data[chat_id]['quiz']
     if q_index < len(quiz):
         question = quiz[q_index]
-        markup = types.InlineKeyboardMarkup()
+        markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         for opt in question["options"]:
-            markup.add(types.InlineKeyboardButton(opt, callback_data=opt))
+            markup.add(opt)
         bot.send_message(chat_id, question["question"], reply_markup=markup)
     else:
         send_results(chat_id)
-
-@bot.callback_query_handler(func=lambda call: user_data.get(call.message.chat.id, {}).get('step') == 'quiz')
-def handle_inline_answer(call):
-    chat_id = call.message.chat.id
-    data = user_data[chat_id]
-    q_index = data['q']
-    question = data['quiz'][q_index]
-    user_answer = call.data
-
-    correct = user_answer == question['answer']
-    data['answers'].append({
-        'question': question['question'],
-        'your_answer': user_answer,
-        'correct_answer': question['answer'],
-        'correct': correct
-    })
-    if correct:
-        data['score'] += 1
-    data['q'] += 1
-    bot.edit_message_reply_markup(chat_id, call.message.message_id, reply_markup=None)  # Remove inline buttons
-    send_question(chat_id)
 
 @bot.message_handler(func=lambda m: user_data.get(m.chat.id, {}).get('step') == 'quiz')
 def handle_answer(message):
