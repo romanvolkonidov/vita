@@ -3,12 +3,23 @@ from telebot import types
 import re
 import os
 from dotenv import load_dotenv
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 # Load environment variables from .env file
 load_dotenv()
 
 API_TOKEN = os.getenv('API_TOKEN')
 TEACHER_CHAT_ID = int(os.getenv('TEACHER_CHAT_ID'))
+
+# Initialize Firebase Admin SDK (only if not already initialized)
+try:
+    firebase_app = firebase_admin.get_app()
+except ValueError:
+    cred = credentials.Certificate(os.getenv('FIREBASE_CREDENTIALS', 'firebase-credentials.json'))
+    firebase_app = firebase_admin.initialize_app(cred)
+
+db = firestore.client()
 
 # Define quizzes for each class
 quizzes = {
@@ -167,8 +178,38 @@ def save_email(message):
 
 @bot.message_handler(commands=['start'])
 def ask_name(message):
-    print(f"User chat id: {message.chat.id}")  # Add this line for debugging
+    print(f"User chat id: {message.chat.id}")
     user_data[message.chat.id] = {}
+    
+    # Extract userId from command if present (e.g., /start userId123)
+    command_args = message.text.split()
+    user_id = command_args[1] if len(command_args) > 1 else None
+    
+    if user_id:
+        try:
+            # Store the telegram chat ID with the user ID in Firestore
+            db.collection('telegramConnections').document(user_id).set({
+                'telegramChatId': message.chat.id,
+                'telegramUsername': message.from_user.username,
+                'connectedAt': firestore.SERVER_TIMESTAMP
+            }, merge=True)
+            
+            # Also update the user's notification preferences
+            db.collection('notificationPreferences').document(user_id).set({
+                'telegram': True
+            }, merge=True)
+            
+            # Send confirmation message
+            bot.send_message(
+                message.chat.id, 
+                f"🎉 Соединение успешно установлено! Теперь вы будете получать уведомления о предстоящих уроках и домашних заданиях."
+            )
+            return
+        except Exception as e:
+            print(f"Error connecting Telegram user: {e}")
+            # Continue with regular flow if there's an error
+    
+    # Regular flow for quiz/test takers
     bot.send_message(message.chat.id, "Привет! Введи, пожалуйста, своё имя (например: Иван Иванов).")
     user_data[message.chat.id]['step'] = 'name'
 
